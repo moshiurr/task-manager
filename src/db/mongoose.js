@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+require('dotenv').config();
 
-const uri = "mongodb+srv://virion:virion@cluster0.ulsrf.mongodb.net/task-manager-api?retryWrites=true&w=majority";
+const uri = process.env.MONGOOSE_URI;
 
 
 mongoose.connect(uri, {

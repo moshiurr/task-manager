@@ -1,6 +1,7 @@
 const { MongoClient, ObjectId } = require('mongodb')
+require('dotenv').config();
 
-const uri = "mongodb+srv://virion:virion@cluster0.ulsrf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const uri = process.env.MONGO_URI;
 
 const dbName = "udemy-task";
 

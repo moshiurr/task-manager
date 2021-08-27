@@ -52,24 +52,27 @@ const User = mongoose.model('User',{
 })
 
 
-const me = new User({
-    name: "moshiur rahman   ",
-    email: "abc@d.CA  ",
-    password: "PassworD56"
-})
+// const me = new User({
+//     name: "moshiur rahman   ",
+//     email: "abc@d.CA  ",
+//     password: "PassworD56"
+// })
 
-me.save().then(()=>{
-    console.log(me)
-}).catch((err)=>{
-    console.log(err);
-})
+// me.save().then(()=>{
+//     console.log(me)
+// }).catch((err)=>{
+//     console.log(err);
+// })
 
 const Task = mongoose.model('Task',{
     description: {
-        type: String
+        type: String,
+        required: true,
+        trim: true
     },
     completed: {
-        type: Boolean
+        type: Boolean,
+        default: false,
     }
 })
 

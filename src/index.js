@@ -29,6 +29,35 @@ app.post("/users", (req, res) => {
 		});
 });
 
+//get all user route
+
+app.get("/users", (req, res) => {
+	User.find({})
+		.then(users => {
+			res.send(users);
+		})
+		.catch(err => {
+			res.status(500).send();
+		});
+});
+
+//get individual user route
+// :id is the dynamic variable provided by express
+
+app.get("/users/:id", (req, res) => {
+	const _id = req.params.id;
+
+	User.findById(_id)
+		.then(user => {
+			if (!user) return res.status(404).send();
+
+			res.send(user);
+		})
+		.catch(e => {
+			res.status(500).send();
+		});
+});
+
 app.post("/tasks", (req, res) => {
 	const task = new Task(req.body);
 

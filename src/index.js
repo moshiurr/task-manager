@@ -5,7 +5,6 @@ require("./db/mongoose");
 //above line ensures that mongoose.js file runs and we get connection to the database
 
 const User = require("./models/user");
-const Taks = require("./models/task");
 const Task = require("./models/task");
 
 const app = express();

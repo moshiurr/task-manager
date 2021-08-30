@@ -26,7 +26,6 @@ const deleteTaskAndCount = async (id) => {
 
 // new ID: 612af97d46315d24c9114b21
 
-
 deleteTaskAndCount("612af97d46315d24c9114b21").then((result) => {
 	console.log(result);
 }).catch(error=>{

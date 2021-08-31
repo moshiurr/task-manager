@@ -92,6 +92,21 @@ app.get("/users/:id", async (req, res) => {
 	// 	});
 });
 
+//delete user route
+
+app.delete('/users/:id', async (req, res) => {
+	
+	try{
+		const user = await User.findByIdAndDelete(req.params.id);
+
+		if(!user) return res.status(404).send();
+
+		res.send(user);
+	}catch(e){
+		res.status(500).send(e);
+	}
+})
+
 app.post("/tasks", async (req, res) => {
 	const task = new Task(req.body);
 
@@ -158,6 +173,20 @@ app.get("/tasks/:id", async (req, res) => {
 	// 		res.status(500).send();
 	// 	});
 });
+
+//delete task route
+
+app.delete('/tasks/:id', async (req, res) => {
+	try{
+		const task = await Task.findByIdAndDelete(req.params.id);
+
+		if(!task) return res.status(404).send();
+
+		res.send(task);
+	}catch(e){
+		res.status(500).send(e);
+	}
+})
 
 app.listen(port, () => {
 	console.log("Server is up and running on port " + port);

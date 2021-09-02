@@ -15,9 +15,9 @@ app.use(express.json());
 //express middleware
 
 //middleware for maintance mode
-app.use((req,res,next)=>{
-	res.status(503).send("The site is under maintanance. Please try again later")
-})
+// app.use((req,res,next)=>{
+// 	res.status(503).send("The site is under maintanance. Please try again later")
+// })
 
 ///////////////////////////////////////////////////////
 ////attaching the user router from another file////////

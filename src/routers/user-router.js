@@ -1,6 +1,6 @@
 const express = require("express");
 const router = new express.Router();
-
+const auth = require('../middleware/auth')
 const User = require("../models/user");
 
 /////////////////////////////////
@@ -18,7 +18,7 @@ router.post("/users", async (req, res) => {
 		const token = await user.generateAuthToken();
 
 		res.status(201).send({user, token});
-		
+
 	} catch (err) {
 		res.status(400).send(err);
 	}
@@ -58,8 +58,8 @@ router.post("/users/login", async (req, res) => {
 });
 
 //get all user route
-
-router.get("/users", async (req, res) => {
+//the second parameter (auth) is the middleware function from middleware folder
+router.get("/users", auth, async (req, res) => {
 	//Using Async-Await
 	try {
 		const users = await User.find({});

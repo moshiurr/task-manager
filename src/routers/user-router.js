@@ -14,7 +14,11 @@ router.post("/users", async (req, res) => {
 	//using Aysnc-Await ps: make sure to make the function 'async'
 	try {
 		await user.save();
-		res.status(201).send(user);
+
+		const token = await user.generateAuthToken();
+
+		res.status(201).send({user, token});
+		
 	} catch (err) {
 		res.status(400).send(err);
 	}
@@ -35,12 +39,19 @@ router.post("/users", async (req, res) => {
 
 router.post("/users/login", async (req, res) => {
 	try {
+
+		//this is a custom method on whole User Collection
 		const user = await User.findByCredentials(
 			req.body.email,
 			req.body.password
 		);
 
-		res.send(user);
+		//this is a custom method of just on user instance
+		//this is the JWT
+		const token = await user.generateAuthToken();
+
+		res.send({user, token});
+
 	} catch (e) {
 		res.status(400).send();
 	}

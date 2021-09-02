@@ -11,6 +11,14 @@ const port = process.env.PORT || 3000;
 //automatically convert express requests to JSON objects
 app.use(express.json());
 
+
+//express middleware
+
+//middleware for maintance mode
+app.use((req,res,next)=>{
+	res.status(503).send("The site is under maintanance. Please try again later")
+})
+
 ///////////////////////////////////////////////////////
 ////attaching the user router from another file////////
 ///////////////////////////////////////////////////////

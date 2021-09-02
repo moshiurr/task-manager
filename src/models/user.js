@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const userSchema = new mongoose.Schema({
 	name: {
@@ -45,9 +46,32 @@ const userSchema = new mongoose.Schema({
 				throw new Error("Password can not be obvious");
 		},
 	},
+
+	tokens: [
+		{
+			token: {
+				type: String,
+				required: true
+			}
+		}
+	]
 });
 
+//custom method for each user instance for generating auth token using jwt
+// methods declare it can used by each user instance
+userSchema.methods.generateAuthToken = async function(){
+	const user = this;
+	const token = jwt.sign({_id: user._id.toString()}, 'secretAuthCred')
+
+	//adding the token to the user property
+	user.tokens = user.tokens.concat({token: token});
+	await user.save();
+
+	return token;
+}
+
 //custom method for veryfing user by email and password
+// P.S:    statics means it accessible by whole collection
 userSchema.statics.findByCredentials = async (email, password) => {
 	const user = await User.findOne({ email: email });
 

@@ -11,7 +11,6 @@ const port = process.env.PORT || 3000;
 //automatically convert express requests to JSON objects
 app.use(express.json());
 
-
 //express middleware
 
 //middleware for maintance mode
@@ -44,15 +43,15 @@ app.listen(port, () => {
 
 const jwt = require("jsonwebtoken");
 
-const myFunc = async () => {
-	const secret = "abcdefghi";
-	const token = jwt.sign({ _id: "abcd123" }, secret, {
-		expiresIn: "1800 seconds",
-	});
-	console.log(token);
+// const myFunc = async () => {
+// 	const secret = "abcdefghi";
+// 	const token = jwt.sign({ _id: "abcd123" }, secret, {
+// 		expiresIn: "1800 seconds",
+// 	});
+// 	console.log(token);
 
-	const data = jwt.verify(token, secret);
-	console.log(data);
-};
+// 	const data = jwt.verify(token, secret);
+// 	console.log(data);
+// };
 
-myFunc();
+// myFunc();

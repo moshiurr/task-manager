@@ -1,6 +1,6 @@
 const express = require("express");
 const router = new express.Router();
-const auth = require('../middleware/auth')
+const auth = require("../middleware/auth");
 const User = require("../models/user");
 
 /////////////////////////////////
@@ -17,8 +17,7 @@ router.post("/users", async (req, res) => {
 
 		const token = await user.generateAuthToken();
 
-		res.status(201).send({user, token});
-
+		res.status(201).send({ user, token });
 	} catch (err) {
 		res.status(400).send(err);
 	}
@@ -39,7 +38,6 @@ router.post("/users", async (req, res) => {
 
 router.post("/users/login", async (req, res) => {
 	try {
-
 		//this is a custom method on whole User Collection
 		const user = await User.findByCredentials(
 			req.body.email,
@@ -50,23 +48,16 @@ router.post("/users/login", async (req, res) => {
 		//this is the JWT
 		const token = await user.generateAuthToken();
 
-		res.send({user, token});
-
+		res.send({ user, token });
 	} catch (e) {
 		res.status(400).send();
 	}
 });
 
-//get all user route
+//get user profile route
 //the second parameter (auth) is the middleware function from middleware folder
-router.get("/users", auth, async (req, res) => {
-	//Using Async-Await
-	try {
-		const users = await User.find({});
-		res.status(200).send(users);
-	} catch (err) {
-		res.status(400).send(err);
-	}
+router.get("/users/me", auth, async (req, res) => {
+	res.send(req.user);
 });
 
 //get individual user route
